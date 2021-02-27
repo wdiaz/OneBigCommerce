@@ -3,6 +3,7 @@ package com.commerce.inventory.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
+import javax.persistence.Lob;
 import java.util.Date;
 
 @Entity
@@ -18,8 +19,8 @@ public class Product extends BaseEntity {
     @Column(name = "short_description", length = 255)
     private String shortDescription;
 
+    @Lob
     @Column(name = "long_description", length = 2000)
-
     private String longDescription;
 
     @Column(name = "is_download")

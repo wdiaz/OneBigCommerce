@@ -9,7 +9,7 @@ import java.util.Date;
 @Inheritance
 public abstract class BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
 
     @Column(name = "created_at", nullable = false, updatable = false)

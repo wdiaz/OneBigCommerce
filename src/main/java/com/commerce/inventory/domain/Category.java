@@ -3,6 +3,7 @@ package com.commerce.inventory.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
+import javax.persistence.Lob;
 import java.util.Date;
 
 @Entity
@@ -14,7 +15,8 @@ public class Category extends BaseEntity {
     @Column(name = "short_description")
     private String shortDescription;
 
-    @Column(name = "long_description")
+    @Lob
+    @Column(name = "long_description", length = 2000)
     private String longDescription;
 
     @Column(name = "active_start_date")
