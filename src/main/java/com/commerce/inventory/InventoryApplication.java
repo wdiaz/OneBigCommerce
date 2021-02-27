@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
@@ -29,10 +30,10 @@ public class InventoryApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-       // createProducts("products.json");
+        // createProducts("products.json");
     }
 
-    private void createProducts(String fileToImport) throws IOException {
+    /*private void createProducts(String fileToImport) throws IOException {
         this.logger.info("Creating products");
 
         ProductFromFile.read(fileToImport).forEach(importedProduct ->
@@ -42,13 +43,16 @@ public class InventoryApplication implements CommandLineRunner {
                         importedProduct.getShortDescription(),
                         importedProduct.getLongDescription(),
                         importedProduct.isDownload(),
-                        importedProduct.isPublished()
-                ));
-    }
+                        importedProduct.isPublished(),
+                        importedProduct.getActiveStartDate(),
+                        importedProduct.getActiveEndDate()
+                        ));
+    }*/
 
     private static class ProductFromFile {
         private String sku, name, shortDescription, longDescription;
         private boolean isDownload, isPublished;
+        private Date activeStartDate, activeEndDate;
 
         static List<ProductFromFile> read(String fileToImport) throws IOException {
             return new ObjectMapper().setVisibility(FIELD, ANY)
@@ -81,6 +85,14 @@ public class InventoryApplication implements CommandLineRunner {
 
         boolean isPublished() {
             return isPublished;
+        }
+
+        Date getActiveStartDate() {
+            return activeStartDate;
+        }
+
+        Date getActiveEndDate() {
+            return activeEndDate;
         }
     }
 }

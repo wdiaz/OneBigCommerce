@@ -5,7 +5,9 @@
     "shortDescription": "Reebok Women's Princess Wide Shoes are soft and supportive, that makes them perfect for all-day wear. ",
     "longDescription": "Reebok Women's Princess Wide Shoes are soft and supportive, that makes them perfect for all-day wear. These sneakers with cushioned midsole protects feet, and the high-abrasion rubber outsole delivers traction. Available in wide sizing. The heritage cushion and a sleek upper with that timeless Union Jack logo. Savor the subtle style of this classic women's shoe.\n\nReebok was founded for one of the best reasons possible: athletes wanted to run faster. So in the 1890s, Joseph William Foster made some of the first known running shoes with spikes in them. By 1895, he was in business making shoes by hand for top runners; and before long his fledgling company, J.W. Foster and Sons, developed an international clientele of distinguished athletes. ",
     "isDownload": "false",
-    "isPublished": "true"
+    "isPublished": "true",
+    "activeStartDate": "2021-02-27T19:34:15.930+00:00",
+    "activeEndDate":"2022-02-27T19:34:15.930+00:00"
   },
   {
     "sku": "B07RGM11L5",
@@ -13,6 +15,11 @@
     "shortDescription": "On hot, humid days, Frigidaire's 5,000 BTU window-mounted air conditioner quickly cools a room up to 150 square feet.  ",
     "longDescription": "On hot, humid days, Frigidaire's 5,000 BTU window-mounted air conditioner quickly cools a room up to 150 square feet. This mini-compact unit features mechanical rotary controls and top, full-width, 2-way air direction control. The washable filter with side, slide-out access captures dust from the air to keep your air conditioner working efficiently. After a power outage, Effortless Restart automatically resumes operating at its previous settings once power is restored. Plus, low power start-up conserves energy and saves you money. Year after year, Frigidaire is the brand you can trust to keep you cool and comfortable. ",
     "isDownload": "false",
-    "isPublished": "true"
+    "isPublished": "true",
+    "activeStartDate": "2021-02-27T19:34:15.930+00:00",
+    "manufacturer": "Figidaire",
+    "width" : 5.25,
+    "height": 16,
+    "depth": 12
   }
 ]
