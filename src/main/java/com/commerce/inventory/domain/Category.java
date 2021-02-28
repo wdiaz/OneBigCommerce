@@ -1,14 +1,14 @@
 package com.commerce.inventory.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.Lob;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Inheritance
-public class Category extends BaseEntity {
+public class Category{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @Column(name = "name")
     private String name;
 
@@ -34,11 +34,12 @@ public class Category extends BaseEntity {
     @Column(name = "canonical_url")
     private String canonicalUrl;
 
+
     public Category() {
     }
 
     public Category(String name, String shortDescription, String longDescription, Date activeStartDate, Date activeEndDate, String metaTile, String metaDescription, String canonicalUrl) {
-        super();
+        //super();
         this.name = name;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
@@ -47,6 +48,14 @@ public class Category extends BaseEntity {
         this.metaTile = metaTile;
         this.metaDescription = metaDescription;
         this.canonicalUrl = canonicalUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

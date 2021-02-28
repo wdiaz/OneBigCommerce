@@ -1,10 +1,9 @@
 package com.commerce.inventory.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.Lob;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Inheritance
@@ -57,6 +56,7 @@ public class Product extends BaseEntity {
 
     @Column(name = "canonical_url")
     private String canonicalUrl;
+
 
     protected Product() {
 
