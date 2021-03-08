@@ -20,9 +20,9 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    /*public Product createProduct(String sku, String name, String shortDescription, String longDescription, boolean isDownload, boolean isPublished, Date activeStartDate, Date activeEndDate,
+    public Product createProduct(String sku, String name, String shortDescription, String longDescription, boolean isDownload, boolean isPublished, Date activeStartDate, Date activeEndDate,
                                  String manufacturer, Long width, Long height, Long depth, String metaTitle, String metaDescription, String canonicalUrl) {
-        return productRepository.findById(1L).orElse(
+        return productRepository.findProductBySku(sku).orElse(
                 productRepository.save(new Product(sku, name, shortDescription, longDescription, isDownload, isPublished, activeStartDate, activeEndDate, manufacturer,
                         width,
                         height,
@@ -32,7 +32,7 @@ public class ProductService {
                         canonicalUrl
                 ))
         );
-    }*/
+    }
 
     /**
      * Lookup for product

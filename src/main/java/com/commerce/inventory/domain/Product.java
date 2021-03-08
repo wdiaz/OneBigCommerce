@@ -125,19 +125,6 @@ public class Product extends BaseEntity {
         isDownload = download;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id + '\'' +
-                ", sku='" + sku + '\'' +
-                ", name='" + name + '\'' +
-                ", shortDescription='" + shortDescription + '\'' +
-                ", longDescription='" + longDescription + '\'' +
-                ", isDownload=" + isDownload +
-                ", isPublished=" + isPublished +
-                '}';
-    }
-
     public boolean isPublished() {
         return isPublished;
     }
@@ -167,7 +154,11 @@ public class Product extends BaseEntity {
     }
 
     public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+        if (manufacturer.isEmpty()) {
+
+        } else {
+            this.manufacturer = manufacturer;
+        }
     }
 
     public Long getWidth() {
@@ -216,5 +207,26 @@ public class Product extends BaseEntity {
 
     public void setCanonicalUrl(String canonicalUrl) {
         this.canonicalUrl = canonicalUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "sku='" + sku + '\'' +
+                ", name='" + name + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", longDescription='" + longDescription + '\'' +
+                ", isDownload=" + isDownload +
+                ", isPublished=" + isPublished +
+                ", activeStartDate=" + activeStartDate +
+                ", activeEndDate=" + activeEndDate +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", width=" + width +
+                ", height=" + height +
+                ", depth=" + depth +
+                ", metaTitle='" + metaTitle + '\'' +
+                ", metaDescription='" + metaDescription + '\'' +
+                ", canonicalUrl='" + canonicalUrl + '\'' +
+                '}';
     }
 }

@@ -1,13 +1,20 @@
 [
   {
     "sku": "B07NZYP9K5",
-    "name": "Reebok Women's Princess Wide Fashion Shoes ",
+    "name": "Reebok Women's Princess Wide Fashion Shoes",
     "shortDescription": "Reebok Women's Princess Wide Shoes are soft and supportive, that makes them perfect for all-day wear. ",
     "longDescription": "Reebok Women's Princess Wide Shoes are soft and supportive, that makes them perfect for all-day wear. These sneakers with cushioned midsole protects feet, and the high-abrasion rubber outsole delivers traction. Available in wide sizing. The heritage cushion and a sleek upper with that timeless Union Jack logo. Savor the subtle style of this classic women's shoe.\n\nReebok was founded for one of the best reasons possible: athletes wanted to run faster. So in the 1890s, Joseph William Foster made some of the first known running shoes with spikes in them. By 1895, he was in business making shoes by hand for top runners; and before long his fledgling company, J.W. Foster and Sons, developed an international clientele of distinguished athletes. ",
     "isDownload": "false",
     "isPublished": "true",
     "activeStartDate": "2021-02-27T19:34:15.930+00:00",
-    "activeEndDate":"2022-02-27T19:34:15.930+00:00"
+    "activeEndDate":"2022-02-27T19:34:15.930+00:00",
+    "manufacturer":  "Telecom",
+    "width":  10.2,
+    "height":  52.25,
+    "depth":  12.56,
+    "metaTitle":  "Rebook shoes",
+    "metaDescription":  "no description here",
+    "canonicalUrl": "/Reebok-Womens-Princess-Wide-Fashion-Shoes"
   },
   {
     "sku": "B07RGM11L5",
@@ -20,6 +27,9 @@
     "manufacturer": "Figidaire",
     "width" : 5.25,
     "height": 16,
-    "depth": 12
+    "depth": 12,
+    "metaTitle":  "Figridare AC",
+    "metaDescription":  "no description here",
+    "canonicalUrl": "/Frigidaire"
   }
 ]
