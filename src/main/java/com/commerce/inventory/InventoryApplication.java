@@ -32,14 +32,13 @@ public class InventoryApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        createProducts("products.json");
+       createProducts("products.json");
     }
 
     private void createProducts(String fileToImport) throws IOException {
         this.logger.info("Creating products");
 
         ProductFromFile.read(fileToImport).forEach(importedProduct ->
-                //logger.info(importedProduct.toString())
                 productService.createProduct(
                         importedProduct.getSku(),
                         importedProduct.getName(),

@@ -10,6 +10,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -69,6 +70,14 @@ public class ProductController {
                     product.setCanonicalUrl(newProduct.getCanonicalUrl());
                     return productRepository.save(product);
                 }).orElseThrow(() -> new NoSuchElementException("Product not found: " + newProduct.getSku()));
+    }
+
+    @GetMapping("/catalog")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    public List<Product> all() {
+        logger.info("loading catalog");
+        return productRepository.findAll();
     }
 
     @GetMapping("/{sku}/sku")

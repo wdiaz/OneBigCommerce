@@ -39,7 +39,7 @@ public class Category{
     }
 
     public Category(String name, String shortDescription, String longDescription, Date activeStartDate, Date activeEndDate, String metaTile, String metaDescription, String canonicalUrl) {
-        //super();
+        super();
         this.name = name;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
