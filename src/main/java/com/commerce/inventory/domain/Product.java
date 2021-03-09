@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Inheritance
+@Table(name = "Products")
 public class Product extends BaseEntity {
 
     @Column(name = "sku", unique = true)
@@ -57,9 +57,16 @@ public class Product extends BaseEntity {
     @Column(name = "canonical_url")
     private String canonicalUrl;
 
+    @OneToMany(
+            mappedBy = "product",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ProductCategory> categories = new ArrayList<ProductCategory>();
+
 
     protected Product() {
-
+        super();
     }
 
     public Product(String sku, String name, String shortDescription, String longDescription, boolean isDownload, boolean isPublished, Date activeStartDate, Date activeEndDate, String manufacturer, Long width, Long height, Long depth, String metaTitle, String metaDescription, String canonicalUrl) {
@@ -207,6 +214,19 @@ public class Product extends BaseEntity {
 
     public void setCanonicalUrl(String canonicalUrl) {
         this.canonicalUrl = canonicalUrl;
+    }
+
+    public List<ProductCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<ProductCategory> categories) {
+        this.categories = categories;
+    }
+
+    public Product setCategory(ProductCategory category) {
+        this.categories.add(category);
+        return this;
     }
 
     @Override

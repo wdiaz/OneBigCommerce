@@ -6,9 +6,10 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
-@RepositoryRestResource(collectionResourceRel = "categories", path = "categories")
+@Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     Optional<Category> findCategoryByName(String name);
 

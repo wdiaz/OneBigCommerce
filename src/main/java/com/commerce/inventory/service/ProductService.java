@@ -1,11 +1,13 @@
 package com.commerce.inventory.service;
 
 import com.commerce.inventory.domain.Product;
+import com.commerce.inventory.domain.ProductCategory;
 import com.commerce.inventory.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * The type Product service.

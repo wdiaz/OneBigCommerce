@@ -3,11 +3,12 @@ package com.commerce.inventory.domain;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Inheritance
-public abstract class BaseEntity {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class BaseEntity  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;

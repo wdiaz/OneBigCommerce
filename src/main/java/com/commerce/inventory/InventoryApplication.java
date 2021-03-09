@@ -1,5 +1,6 @@
 package com.commerce.inventory;
 
+import com.commerce.inventory.service.CategoryService;
 import com.commerce.inventory.service.ProductService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,17 +27,39 @@ public class InventoryApplication implements CommandLineRunner {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     public static void main(String[] args) {
         SpringApplication.run(InventoryApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-       createProducts("products.json");
+        createCategories("categories.json");
+        createProducts("products.json");
+    }
+
+    private void createCategories(String fileToImport) throws IOException {
+        logger.info("Loading categories");
+
+        CategoryFromFile.read(fileToImport).forEach(importedCategory ->
+            categoryService.createCategory(
+                    importedCategory.getName(),
+                    importedCategory.getShortDescription(),
+                    importedCategory.getLongDescription(),
+                    importedCategory.getActiveStartDate(),
+                    importedCategory.getActiveEndDate(),
+                    importedCategory.getMetaTitle(),
+                    importedCategory.getLongDescription(),
+                    importedCategory.getCanonicalUrl()
+           ));
     }
 
     private void createProducts(String fileToImport) throws IOException {
-        this.logger.info("Creating products");
+        this.logger.info("Loading products");
+
+        //categoryService.createCategory("Toys", "Kids Department", "Games and Toys", new Date(), null, "toys for all", "toys for kids", "/toys");
 
         ProductFromFile.read(fileToImport).forEach(importedProduct ->
                 productService.createProduct(
@@ -55,7 +78,7 @@ public class InventoryApplication implements CommandLineRunner {
                         importedProduct.getMetaTitle(),
                         importedProduct.getMetaDescription(),
                         importedProduct.getCanonicalUrl()
-                        ));
+                ));
     }
 
     private static class ProductFromFile {
@@ -107,21 +130,27 @@ public class InventoryApplication implements CommandLineRunner {
             return manufacturer;
 
         }
+
         private Long getWidth() {
             return width;
         }
+
         private Long getHeight() {
             return height;
         }
+
         private Long getDepth() {
             return depth;
         }
+
         private String getMetaTitle() {
             return metaTitle;
         }
+
         private String getMetaDescription() {
             return metaDescription;
         }
+
         private String getCanonicalUrl() {
             return canonicalUrl;
         }
@@ -147,4 +176,58 @@ public class InventoryApplication implements CommandLineRunner {
                     '}';
         }
     }
+
+
+    private static class CategoryFromFile {
+        private String name, shortDescription, longDescription, metaTitle, metaDescription, canonicalUrl;
+        private Date activeStartDate, activeEndDate, createdAt, updatedAt;
+
+        static List<CategoryFromFile> read(String fileToImport) throws IOException {
+            return new ObjectMapper().setVisibility(FIELD, ANY)
+                    .readValue(new FileInputStream(fileToImport), new TypeReference<List<CategoryFromFile>>() {
+                    });
+        }
+
+        private String getName() {
+            return name;
+        }
+
+        private String getShortDescription() {
+            return shortDescription;
+        }
+
+        private String getLongDescription() {
+            return longDescription;
+        }
+
+        public String getMetaTitle() {
+            return metaTitle;
+        }
+
+        public String getMetaDescription() {
+            return metaDescription;
+        }
+
+        public String getCanonicalUrl() {
+            return canonicalUrl;
+        }
+
+        public Date getActiveStartDate() {
+            return activeStartDate;
+        }
+
+        public Date getActiveEndDate() {
+            return activeEndDate;
+        }
+
+        public Date getCreatedAt() {
+            return createdAt;
+        }
+
+        public Date getUpdatedAt() {
+            return updatedAt;
+        }
+    }
+
+
 }

@@ -1,26 +1,22 @@
 package com.commerce.inventory.domain;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
-@Entity
-public class ProductCategory implements Serializable {
+@Entity(name = "ProductCategory")
+@Table(name = "product_category")
+public class ProductCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(targetEntity = Product.class, optional = false, cascade = CascadeType.REFRESH)
+    @ManyToOne(targetEntity = Product.class, optional = false, fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(targetEntity = Category.class, optional = false, cascade = CascadeType.REFRESH)
+    @ManyToOne(targetEntity = Category.class, optional = false, fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "category_id")
     private Category category;
-
-    public Product getProduct() {
-        return product;
-    }
 
     public Long getId() {
         return id;
@@ -28,6 +24,10 @@ public class ProductCategory implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 
     public void setProduct(Product product) {

@@ -1,10 +1,13 @@
 package com.commerce.inventory.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class Category{
+@Table(name = "Categories")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,7 +29,7 @@ public class Category{
     private Date activeEndDate;
 
     @Column(name = "meta_title")
-    private String metaTile;
+    private String metaTitle;
 
     @Column(name = "meta_description")
     private String metaDescription;
@@ -34,20 +37,37 @@ public class Category{
     @Column(name = "canonical_url")
     private String canonicalUrl;
 
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updatedAt")
+    private Date updatedAt;
+
+    @OneToMany(
+            mappedBy = "category",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ProductCategory> categories = new ArrayList<ProductCategory>();
 
     public Category() {
+        createdAt = new Date();
     }
 
-    public Category(String name, String shortDescription, String longDescription, Date activeStartDate, Date activeEndDate, String metaTile, String metaDescription, String canonicalUrl) {
+    public Category(String name, String shortDescription, String longDescription, Date activeStartDate,
+                    Date activeEndDate, String metaTitle, String metaDescription,
+                    String canonicalUrl
+                    ) {
         super();
         this.name = name;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.activeStartDate = activeStartDate;
         this.activeEndDate = activeEndDate;
-        this.metaTile = metaTile;
+        this.metaTitle = metaTitle;
         this.metaDescription = metaDescription;
         this.canonicalUrl = canonicalUrl;
+        this.createdAt = new Date();
     }
 
     public Long getId() {
@@ -98,12 +118,12 @@ public class Category{
         this.activeEndDate = activeEndDate;
     }
 
-    public String getMetaTile() {
-        return metaTile;
+    public String getMetaTitle() {
+        return metaTitle;
     }
 
-    public void setMetaTile(String metaTile) {
-        this.metaTile = metaTile;
+    public void setMetaTitle(String metaTile) {
+        this.metaTitle = metaTitle;
     }
 
     public String getMetaDescription() {
@@ -120,5 +140,34 @@ public class Category{
 
     public void setCanonicalUrl(String canonicalUrl) {
         this.canonicalUrl = canonicalUrl;
+    }
+
+    public List<ProductCategory> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<ProductCategory> categories) {
+        this.categories = categories;
+    }
+
+    public Category setCategory(ProductCategory category) {
+        this.categories.add(category);
+        return this;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
