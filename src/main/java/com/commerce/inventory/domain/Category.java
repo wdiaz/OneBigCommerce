@@ -1,9 +1,7 @@
 package com.commerce.inventory.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "Categories")
@@ -42,13 +40,6 @@ public class Category {
 
     @Column(name = "updatedAt")
     private Date updatedAt;
-
-    @OneToMany(
-            mappedBy = "category",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<ProductCategory> categories = new ArrayList<ProductCategory>();
 
     public Category() {
         createdAt = new Date();
@@ -140,19 +131,6 @@ public class Category {
 
     public void setCanonicalUrl(String canonicalUrl) {
         this.canonicalUrl = canonicalUrl;
-    }
-
-    public List<ProductCategory> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<ProductCategory> categories) {
-        this.categories = categories;
-    }
-
-    public Category setCategory(ProductCategory category) {
-        this.categories.add(category);
-        return this;
     }
 
     public Date getCreatedAt() {

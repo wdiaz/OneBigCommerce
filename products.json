@@ -31,5 +31,21 @@
     "metaTitle":  "Figridare AC",
     "metaDescription":  "no description here",
     "canonicalUrl": "/Frigidaire"
+  },
+  {
+    "sku": "B077MZQ4F9",
+    "name": "CHAP-ICE Assorted Lip Balm with Display Box, Moisture SPF-15, Cherry-SPF4, Watermelon, 24 Count",
+    "shortDescription": "CHAP-ICE Assorted Lip Balm with Display Box, Moisture SPF-15, Cherry-SPF4, Watermelon",
+    "longDescription": "CHAP-ICE Assorted Lip Balm with Display Box, Moisture SPF-15, Cherry-SPF4, Watermelon",
+    "isDownload": "false",
+    "isPublished": "true",
+    "activeStartDate": "2021-02-27T19:34:15.930+00:00",
+    "manufacturer": "Figidaire",
+    "width" : 5.25,
+    "height": 16,
+    "depth": 12,
+    "metaTitle":  "CHAP-ICE",
+    "metaDescription":  "no description here",
+    "canonicalUrl": "/Frigidaire"
   }
 ]

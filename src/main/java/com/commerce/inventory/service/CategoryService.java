@@ -26,4 +26,8 @@ public class CategoryService {
             categoryRepository.save(new Category(name, shortDescription, longDescription, activeStartDate, activeEndDate, metaTitle, metaDescription, canonicalUrl)
         ));
     }
+
+    public CategoryRepository getCategoryRepository() {
+        return categoryRepository;
+    }
 }

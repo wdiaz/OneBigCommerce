@@ -36,13 +36,19 @@ public class InventoryApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        createCategories("categories.json");
+        /*createCategories("categories.json");
         createProducts("products.json");
+        Optional<Product> p  = productService.getProductRepository().findProductBySku("B07NZYP9K5");
+        Optional<Category> c = categoryService.getCategoryRepository().findCategoryById(1L);
+        Product product =  new Product();
+        if(p.isPresent()) {
+            product = p.get();
+        }
+        productService.getProductRepository().save(product);*/
     }
 
     private void createCategories(String fileToImport) throws IOException {
-        logger.info("Loading categories");
-
+        logger.info("Loading Categories");
         CategoryFromFile.read(fileToImport).forEach(importedCategory ->
             categoryService.createCategory(
                     importedCategory.getName(),
@@ -57,10 +63,7 @@ public class InventoryApplication implements CommandLineRunner {
     }
 
     private void createProducts(String fileToImport) throws IOException {
-        this.logger.info("Loading products");
-
-        //categoryService.createCategory("Toys", "Kids Department", "Games and Toys", new Date(), null, "toys for all", "toys for kids", "/toys");
-
+        logger.info("Loading Products");
         ProductFromFile.read(fileToImport).forEach(importedProduct ->
                 productService.createProduct(
                         importedProduct.getSku(),

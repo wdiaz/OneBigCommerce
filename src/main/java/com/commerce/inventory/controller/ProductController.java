@@ -1,5 +1,6 @@
 package com.commerce.inventory.controller;
 
+import com.commerce.inventory.domain.Category;
 import com.commerce.inventory.domain.Product;
 import com.commerce.inventory.repository.CategoryRepository;
 import com.commerce.inventory.repository.ProductRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "products")
@@ -45,6 +47,8 @@ public class ProductController {
         productRepository.findProductBySku(newProduct.getSku()).ifPresent(s -> {
             throw new DuplicateKeyException("already in the database");
         });
+
+        Optional<Category> category = categoryRepository.findCategoryByName("Toys");
         return productRepository.save(newProduct);
     }
 
@@ -73,7 +77,6 @@ public class ProductController {
     }
 
     @GetMapping("/catalog")
-    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public List<Product> all() {
         logger.info("loading catalog");
