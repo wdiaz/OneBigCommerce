@@ -1,105 +1,109 @@
 package com.commerce.inventory.domain;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "Product")
 public class Product {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Long id;
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @CreationTimestamp
-    protected Date createdAt;
-    @Column(name = "sku", unique = true)
-    private String sku;
+    @Column(name = "id")
+    private Integer id;
+
     @Column(name = "name")
     private String name;
-    @Column(name = "short_description", length = 255)
+
+    @Column(name = "sku")
+    private String sku;
+
+    @Column(name = "short_description")
     private String shortDescription;
+
     @Lob
-    @Column(name = "long_description", length = 2000)
+    @Column(name = "long_description")
     private String longDescription;
+
+    @Column(name = "active_start_date")
+    private Date activeStartDate;
+
+    @Column(name = "active_end_date")
+    private Date activeEndDate;
+
+    @Column(name = "manufacturer")
+    private String manufacturer;
+
+    @Column(name = "created_at")
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
     @Column(name = "is_download")
     private boolean isDownload;
+
     @Column(name = "is_published")
     private boolean isPublished;
-    @Column(name = "active_start_date", nullable = true)
-    private Date activeStartDate;
-    @Column(name = "active_end_date", nullable = true)
-    private Date activeEndDate;
-    @Column(name = "manufacturer", nullable = false)
-    private String manufacturer;
-    @Column(name = "width")
-    private Long width;
-    @Column(name = "height")
-    private Long height;
-    @Column(name = "depth")
-    private Long depth;
+
     @Column(name = "meta_title")
     private String metaTitle;
+
     @Column(name = "meta_description")
     private String metaDescription;
+
     @Column(name = "canonical_url")
     private String canonicalUrl;
 
+    @Column(name = "is_promoted")
+    private boolean isPromoted;
+
     public Product() {
-        super();
     }
 
-    public Product(String sku, String name, String shortDescription, String longDescription, boolean isDownload, boolean isPublished, Date activeStartDate, Date activeEndDate, String manufacturer, Long width, Long height, Long depth, String metaTitle, String metaDescription, String canonicalUrl) {
-        super();
-        this.sku = sku;
+    public Product(Integer id, String name, String sku, String shortDescription, String longDescription, Date activeStartDate, Date activeEndDate, String manufacturer, Date createdAt, Date updatedAt, boolean isDownload, boolean isPublished, String metaTitle, String metaDescription, String canonicalUrl, boolean isPromoted) {
+        this.id = id;
         this.name = name;
+        this.sku = sku;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
-        this.isDownload = isDownload;
-        this.isPublished = isPublished;
         this.activeStartDate = activeStartDate;
         this.activeEndDate = activeEndDate;
         this.manufacturer = manufacturer;
-        this.width = width;
-        this.height = height;
-        this.depth = depth;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.isDownload = isDownload;
+        this.isPublished = isPublished;
         this.metaTitle = metaTitle;
         this.metaDescription = metaDescription;
         this.canonicalUrl = canonicalUrl;
+        this.isPromoted = isPromoted;
     }
 
-    public Product(String name) {
-        this.name = name;
+    public Integer getId() {
+        return this.id;
     }
 
-    protected Long getId() {
-        return id;
-    }
-
-    protected void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
-
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getSku() {
+        return this.sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
     public String getShortDescription() {
-        return shortDescription;
+        return this.shortDescription;
     }
 
     public void setShortDescription(String shortDescription) {
@@ -107,83 +111,74 @@ public class Product {
     }
 
     public String getLongDescription() {
-        return longDescription;
+        return this.longDescription;
     }
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
     }
 
-    public boolean isDownload() {
-        return isDownload;
-    }
-
-    public void setDownload(boolean download) {
-        isDownload = download;
-    }
-
-    public boolean isPublished() {
-        return isPublished;
-    }
-
-    public void setPublished(boolean published) {
-        isPublished = published;
-    }
-
     public Date getActiveStartDate() {
-        return activeStartDate;
+        return this.activeStartDate;
     }
 
-    public void setActiveStartDate(Date activeStartDate) {
+    public void setActiveStartDate(java.sql.Date activeStartDate) {
         this.activeStartDate = activeStartDate;
     }
 
     public Date getActiveEndDate() {
-        return activeEndDate;
+        return this.activeEndDate;
     }
 
-    public void setActiveEndDate(Date activeEndDate) {
+    public void setActiveEndDate(java.sql.Date activeEndDate) {
         this.activeEndDate = activeEndDate;
     }
 
     public String getManufacturer() {
-        return manufacturer;
+        return this.manufacturer;
     }
 
     public void setManufacturer(String manufacturer) {
-        if (manufacturer.isEmpty()) {
-
-        } else {
-            this.manufacturer = manufacturer;
-        }
+        this.manufacturer = manufacturer;
     }
 
-    public Long getWidth() {
-        return width;
+    public Date getCreatedAt() {
+        return this.createdAt;
     }
 
-    public void setWidth(Long width) {
-        this.width = width;
+    public void setCreatedAt(java.sql.Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Long getHeight() {
-        return height;
+    public Date getUpdatedAt() {
+        return this.updatedAt;
     }
 
-    public void setHeight(Long height) {
-        this.height = height;
+    public void setUpdatedAt(java.sql.Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public Long getDepth() {
-        return depth;
+    public boolean getIsDownload() {
+        return this.isDownload;
     }
 
-    public void setDepth(Long depth) {
-        this.depth = depth;
+    public Product setIsDownload(boolean isDownload) {
+
+        this.isDownload = isDownload;
+
+        return this;
+    }
+
+    public boolean getIsPublished() {
+        return this.isPublished;
+    }
+
+    public void setIsPublished(boolean isPublished) {
+        this.isPublished = isPublished;
     }
 
     public String getMetaTitle() {
-        return metaTitle;
+        return this.metaTitle;
     }
 
     public void setMetaTitle(String metaTitle) {
@@ -191,7 +186,7 @@ public class Product {
     }
 
     public String getMetaDescription() {
-        return metaDescription;
+        return this.metaDescription;
     }
 
     public void setMetaDescription(String metaDescription) {
@@ -199,19 +194,21 @@ public class Product {
     }
 
     public String getCanonicalUrl() {
-        return canonicalUrl;
+        return this.canonicalUrl;
     }
 
     public void setCanonicalUrl(String canonicalUrl) {
         this.canonicalUrl = canonicalUrl;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public boolean getIsPromoted() {
+        return this.isPromoted;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+    public Product setIsPromoted(boolean isPromoted) {
 
+        this.isPromoted = isPromoted;
+
+        return this;
+    }
 }

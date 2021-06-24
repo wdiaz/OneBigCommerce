@@ -1,14 +1,17 @@
 package com.commerce.inventory.domain;
 
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
-@Table(name = "Categories")
+@Table(name = "Category")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -16,61 +19,29 @@ public class Category {
     @Column(name = "short_description")
     private String shortDescription;
 
-    @Lob
-    @Column(name = "long_description", length = 2000)
+    @Column(name = "long_description")
     private String longDescription;
-
-    @Column(name = "active_start_date")
-    private Date activeStartDate;
-
-    @Column(name = "active_end_date")
-    private Date activeEndDate;
-
-    @Column(name = "meta_title")
-    private String metaTitle;
-
-    @Column(name = "meta_description")
-    private String metaDescription;
-
-    @Column(name = "canonical_url")
-    private String canonicalUrl;
 
     @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(name = "updatedAt")
+    @Column(name = "updated_at")
     private Date updatedAt;
 
-    public Category() {
-        createdAt = new Date();
+    public String getLongDescription() {
+        return this.longDescription;
     }
 
-    public Category(String name, String shortDescription, String longDescription, Date activeStartDate,
-                    Date activeEndDate, String metaTitle, String metaDescription,
-                    String canonicalUrl
-                    ) {
-        super();
-        this.name = name;
-        this.shortDescription = shortDescription;
-        this.longDescription = longDescription;
-        this.activeStartDate = activeStartDate;
-        this.activeEndDate = activeEndDate;
-        this.metaTitle = metaTitle;
-        this.metaDescription = metaDescription;
-        this.canonicalUrl = canonicalUrl;
-        this.createdAt = new Date();
+    public Integer getId() {
+        return this.id;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -78,63 +49,20 @@ public class Category {
     }
 
     public String getShortDescription() {
-        return shortDescription;
+        return this.shortDescription;
     }
+
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
-    }
-
-    public String getLongDescription() {
-        return longDescription;
     }
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
     }
 
-    public Date getActiveStartDate() {
-        return activeStartDate;
-    }
-
-    public void setActiveStartDate(Date activeStartDate) {
-        this.activeStartDate = activeStartDate;
-    }
-
-    public Date getActiveEndDate() {
-        return activeEndDate;
-    }
-
-    public void setActiveEndDate(Date activeEndDate) {
-        this.activeEndDate = activeEndDate;
-    }
-
-    public String getMetaTitle() {
-        return metaTitle;
-    }
-
-    public void setMetaTitle(String metaTile) {
-        this.metaTitle = metaTitle;
-    }
-
-    public String getMetaDescription() {
-        return metaDescription;
-    }
-
-    public void setMetaDescription(String metaDescription) {
-        this.metaDescription = metaDescription;
-    }
-
-    public String getCanonicalUrl() {
-        return canonicalUrl;
-    }
-
-    public void setCanonicalUrl(String canonicalUrl) {
-        this.canonicalUrl = canonicalUrl;
-    }
-
     public Date getCreatedAt() {
-        return createdAt;
+        return this.createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
@@ -142,7 +70,7 @@ public class Category {
     }
 
     public Date getUpdatedAt() {
-        return updatedAt;
+        return this.updatedAt;
     }
 
     public void setUpdatedAt(Date updatedAt) {

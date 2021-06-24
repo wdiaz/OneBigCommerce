@@ -1,101 +1,74 @@
 package com.commerce.inventory.controller;
 
-import com.commerce.inventory.domain.Category;
 import com.commerce.inventory.domain.Product;
-import com.commerce.inventory.repository.CategoryRepository;
 import com.commerce.inventory.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
+import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.reactive.WebFluxLinkBuilder.methodOn;
+
+@CrossOrigin(origins = "https://127.0.0.1:8000", maxAge = 3600)
 @RestController
-@RequestMapping(path = "products")
 public class ProductController {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private ProductRepository productRepository;
-    private CategoryRepository categoryRepository;
+    private final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
+    private final ProductRepository productRepository;
 
     @Autowired
-    public ProductController(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductController(ProductRepository productRepository) {
+
         this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
     }
 
-    protected ProductController() {
+    @GetMapping("/products")
+    CollectionModel<EntityModel<Product>> all() {
+        List<EntityModel<Product>> employees = productRepository.findAll().stream()
+                .map(employee -> {
+                    try {
+                        return EntityModel.of(employee,
+                                linkTo(methodOn(ProductController.class).one(employee.getId())).withSelfRel(),
+                                linkTo(methodOn(ProductController.class).all()).withRel("products"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(employees, linkTo(methodOn(ProductController.class).all()).withSelfRel());
     }
 
-    @PostMapping("/new")
-    @ResponseStatus(HttpStatus.CREATED)
-    @ExceptionHandler(DuplicateKeyException.class)
-    public Product create(@RequestBody Product newProduct) {
-        logger.info("Saving sku:" + newProduct.getSku());
-        /**
-         *  this function is not functional yet
-         return productRepository.findProductBySku(product.getSku())
-         .map( newProduct -> {
-         return productRepository.save(newProduct);
-         }).orElseThrow(() -> new DuplicateKeyException("Product Already Exist: " + product.getSku()));
-         */
-        //return productRepository.save(product);
-        productRepository.findProductBySku(newProduct.getSku()).ifPresent(s -> {
-            throw new DuplicateKeyException("already in the database");
-        });
-
-        Optional<Category> category = categoryRepository.findCategoryByName("Toys");
-        return productRepository.save(newProduct);
+    @GetMapping("/product/{id}")
+    EntityModel<Product> one(@PathVariable Integer id) throws Exception {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new Exception("invalid"));
+        return EntityModel.of(product,
+                linkTo(methodOn(ProductController.class).one(id)).withSelfRel(),
+                linkTo(methodOn(ProductController.class).all()).withRel("products"));
     }
 
-    @PutMapping("/update")
-    @ResponseStatus(HttpStatus.OK)
-    public Product update(@RequestBody Product newProduct) {
-        logger.info("updating Product" + newProduct);
-        return productRepository.findProductBySku(newProduct.getSku())
-                .map((product) -> {
-                    product.setName(newProduct.getName());
-                    product.setShortDescription(newProduct.getShortDescription());
-                    product.setLongDescription(newProduct.getLongDescription());
-                    product.setDownload(newProduct.isDownload());
-                    product.setPublished(newProduct.isPublished());
-                    product.setActiveStartDate(newProduct.getActiveStartDate());
-                    product.setActiveEndDate(newProduct.getActiveEndDate());
-                    product.setManufacturer(newProduct.getManufacturer());
-                    product.setWidth(newProduct.getWidth());
-                    product.setHeight(newProduct.getHeight());
-                    product.setDepth(newProduct.getDepth());
-                    product.setMetaTitle(newProduct.getMetaTitle());
-                    product.setMetaDescription(newProduct.getMetaDescription());
-                    product.setCanonicalUrl(newProduct.getCanonicalUrl());
-                    return productRepository.save(product);
-                }).orElseThrow(() -> new NoSuchElementException("Product not found: " + newProduct.getSku()));
+    @GetMapping("/product/{sku}")
+    EntityModel<Product> view(@PathVariable String sku) throws Exception {
+        Product product = productRepository.findProductBySku(sku);
+        if(product == null) {
+            throw new Exception("Product Not Found");
+        }
+        return EntityModel.of(product,
+                linkTo(methodOn(ProductController.class).one(product.getId())).withSelfRel(),
+                linkTo(methodOn(ProductController.class).all()).withSelfRel());
+
     }
 
-    @GetMapping("/catalog")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Product> all() {
-        logger.info("loading catalog");
-        return productRepository.findAll();
-    }
-
-    @GetMapping("/{sku}/sku")
-    @ResponseStatus(HttpStatus.FOUND)
-    public Product view(@PathVariable(value = "sku") String sku) throws NoSuchElementException {
-        return productRepository.findProductBySku(sku).orElseThrow(() -> new NoSuchElementException("Product Does not Exist: " + sku));
-    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NoSuchElementException.class)
-    private String return400(NoSuchElementException ex) {
-        return ex.getMessage();
-    }
-
-    private Product verifyProductExist(String sku) throws NoSuchElementException {
-        return productRepository.findProductBySku(sku).orElseThrow(() -> new NoSuchElementException("Product Does not exist: " + sku));
-    }
 }
